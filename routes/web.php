@@ -20,9 +20,11 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'dashboard'], function () {
-    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     //admins routes
     Route::group(['prefix' => 'admins'], function () {
-        Route::get('/', [AdminController::class, 'index']);
+        Route::get('/', [AdminController::class, 'index'])->name('admins');
+        Route::get('/add_admin', [AdminController::class, 'create'])->name('add_admin');
+        Route::post('/store', [AdminController::class, 'store'])->name('admin.store');
     });
 });

@@ -4,10 +4,10 @@
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
-<script src="{{asset('back_end/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{ asset('back_end/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- ChartJS -->
 <script src="{{ asset('back_end/plugins/chart.js/Chart.min.js') }}"></script>
 <!-- Sparkline -->
@@ -32,4 +32,65 @@
 <script src="{{ asset('back_end/dist/js/demo.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset('back_end/dist/js/pages/dashboard.js') }}"></script>
-<script src="{{asset('back_end/dist/js/pages/dashboard.js')}}"></script>
+<script src="{{ asset('back_end/dist/js/pages/dashboard.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script src="{{ asset('back_end/toastr.min.js') }}"></script>
+
+<script>
+    toastr.options.positionClass = 'toast-bottom-right';
+    @if (session('success'))
+        toastr.success("{{ session('success') }}");
+    @endif
+
+    @if (session('error'))
+        toastr.error("{{ session('error') }}");
+    @endif
+
+    @if ($errors->any())
+        let errorList = `<ul>`;
+        @foreach ($errors->all() as $error)
+            errorList += `<li>{{ $error }}</li>`;
+        @endforeach
+        errorList += `</ul>`;
+
+        toastr.error(errorList, 'Validation Error');
+    @endif
+
+
+</script>
+
+
+
+<script>
+    //image input show image by abed
+    $(document).ready(function() {
+        $('#file-image').on('change', function() { //on file input change
+            if (window.File && window.FileReader && window.FileList && window
+                .Blob) //check File API supported browser
+            {
+                $('#thumb-output').html(''); //clear html of output element
+                var data = $(this)[0].files; //this file data
+
+                $.each(data, function(index, file) { //loop though each file
+                    if (/(\.|\/)(gif|jpe?g|png)$/i.test(file
+                            .type)) { //check supported file type
+                        var fRead = new FileReader(); //new filereader
+                        fRead.onload = (function(file) { //trigger function on successful read
+                            return function(e) {
+                                var img = $('<img />').addClass('thumb').attr('src',
+                                    e.target.result); //create image element
+                                $('#thumb-output').append(
+                                    img); //append image to output element
+                            };
+                        })(file);
+                        fRead.readAsDataURL(file); //URL representing the file's data.
+                    }
+                });
+
+            } else {
+                alert("Your browser doesn't support File API!"); //if File API is absent
+            }
+        });
+    });
+</script>

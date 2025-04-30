@@ -3,6 +3,9 @@
 @section('page_title')
     Admins Section
 @endsection
+@section('page_sup_title')
+    Admins
+@endsection
 
 @section('content')
     <!-- داخل الـ content-wrapper -->
@@ -11,6 +14,9 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Admins Data</h3>
+                    <div class="text-right">
+                        <a href="{{ route('add_admin') }}" class="btn btn-primary">add Admin</a>
+                    </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -68,3 +74,4 @@
     </div><!-- /.container-fluid -->
     </section>
 @endsection
+
