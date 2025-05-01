@@ -14,7 +14,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        $admins = DB::table('admins')->paginate(2);
+        $admins = DB::table('admins')->paginate(5);
         return view('admins.index')->with([
             'admins' => $admins
         ]);
