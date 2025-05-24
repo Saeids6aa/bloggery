@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('page_title')
-    Add_Admin
+    edit_Admin
 @endsection
 
 @section('page_sup_title')
-    Add
+    edit admin
 @endsection
 @section('style')
     <style>
         .select2-container .select2-selection--single {
             height: 38px;
-            padding: 6px 12px;
+            pediting: 6px 12px;
             border: 1px solid #ced4da;
             border-radius: 4px;
         }
@@ -23,40 +23,36 @@
             <div class="col-md-12">
                 <div class="card card-default">
                     <div class="card-header">
-                        <h3 class="card-title">Add New Admin</h3>
+                        <h3 class="card-title">edit Admin</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.update', $admin->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
+                            @method('put')
                             <div class="form-group">
                                 <label for="email">Admin Name</label>
                                 <input type="text" name="admin_name" class="form-control" id="admin_name"
-                                    placeholder="Enter admin name">
+                                    value="{{ $admin->admin_name }}">
                             </div>
                             <div class="form-group">
                                 <label for="email">Email address</label>
                                 <input type="email" name="email" class="form-control" id="email"
-                                    placeholder="Enter email">
+                                    value="{{ $admin->email }}">
                             </div>
-
-                            <div class="form-group">
-                                <label for="password">Password</label>
-                                <input type="password" name="password" class="form-control" id="password"
-                                    placeholder="Enter password">
-                            </div>
-                            <div class="form-group">
-                                <label for="password_confirmation">Password Confirmation</label>
-                                <input type="password" name="password_confirmation" class="form-control"
-                                    id="password_confirmation" placeholder="Enter password Confirmation">
-                            </div>
-                            
                             <div class="form-group mb-4">
                                 <label for="role" class="form-label fw-bold">Select Role</label>
                                 <select class="form-control select2" id="role" name="role" style="width: 100%;">
-                                    <option selected>Choose Role</option>
-                                    <option value="admin">Admin</option>
-                                    <option value="super_admin">Super Admin</option>
-                                    <option value="editor">Editor</option>
+                                    <option disabled>Choose Role
+                                    </option>
+
+                                    <option value="admin" @php if($admin->role == "admin"){ echo 'selected'; } @endphp>
+                                        Admin</option>
+                                    <option value="super_admin"
+                                        @php if($admin->role == "super_admin"){ echo 'selected'; } @endphp>Super Admin
+                                    </option>
+                                    <option value="editor" {{ $admin->role == 'editor' ? 'selected' : '' }}>Editor</option>
+
+
                                 </select>
                             </div>
 
@@ -67,25 +63,27 @@
                                     <label class="custom-file-label" for="admin_image">Choose file</label>
                                 </div>
                             </div>
-                            <div id="thumb-output"></div>  <!-- for show the image in footer meta -->
-
+                            <div id="thumb-output">
+                            </div>
+                           
+                            @if ($admin->admin_image)
+                                <img src="{{ asset('images/admin/admin_image/' . $admin->admin_image) }}" width="200px"
+                                    height="150px" style="border-radius: 5px">
+                            @endif
                             <div class="text-end mt-4">
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
 
                         </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-@endsection
-@section('script')
-    <script>
+    @endsection
+    @section('script')
+        <script>
             $(document).ready(function() {
                 $('.select2').select2();
             });
-    </script>
-
-
-   
-@endsection
+        </script>
+    @endsection

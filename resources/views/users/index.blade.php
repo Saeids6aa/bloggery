@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('page_title')
-    Admins Section
+    users Section
 @endsection
 @section('page_sup_title')
-    Admins
+    users
 @endsection
 
 @section('content')
@@ -12,9 +12,9 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">Admins Data</h3>
+                    <h3 class="card-title">users Data</h3>
                     <div class="text-right">
-                        <a href="{{ route('add_admin') }}" class="btn btn-primary">add Admin</a>
+                        <a href="{{ route('add_users') }}" class="btn btn-primary">add user</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -25,31 +25,20 @@
                                 <th>name</th>
                                 <th>Email</th>
                                 <th>image</th>
-                                <th>Role</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($admins as $admin)
+                            @foreach ($users as $user)
                                 <tr style="text-align: center">
-                                    <td>{{ $admin->id }}</td>
-                                    <td>{{ $admin->admin_name }}</td>
-                                    <td>{{ $admin->email }}</td>
-                                    <td><img src="{{ asset('images/admin/admin_image/' . $admin->admin_image) }}"
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td><img src="{{ asset('images/user/user_image/' . $user->user_image) }}"
                                             width="50px" style="border-radius: 5px"></td>
+                               
                                     <td>
-                                        @if ($admin->role === 'super_admin')
-                                            <span class="badge badge-danger">Super Admin</span>
-                                        @elseif($admin->role === 'admin')
-                                            <span class="badge badge-primary">Admin</span>
-                                        @elseif($admin->role === 'editor')
-                                            <span class="badge badge-success">Editor</span>
-                                        @else
-                                            <span class="badge badge-secondary">{{ $admin->role }}</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <form action="{{ route('admin.delete', $admin->id) }}" method="POST"
+                                        <form action="{{ route('users.delete', $user->id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
@@ -58,7 +47,7 @@
                                                 <i class="fa fa-trash" style="color: red;"></i>
                                             </button>
                                         </form>
-                                        <a href="{{route('admin.edit',$admin->id)}}" class="fa fa-edit" style="color: darkcyan;"></a>
+                                        <a href="{{route('users.edit',$user->id)}}" class="fa fa-edit" style="color: darkcyan;"></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -66,7 +55,7 @@
                     </table>
                     <br>
                     <div class="d-flex justify-content-right">
-                        {{ $admins->links('pagination::bootstrap-4') }}
+                        {{ $users->links('pagination::bootstrap-4') }}
                     </div>
                 </div>
 
