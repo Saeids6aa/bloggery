@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+
 
 class usersControlleroller extends Controller
 {
@@ -20,22 +22,23 @@ class usersControlleroller extends Controller
         // ]);
 
     }
-    public function create(){
-                return view('users.add_users');
- 
-    }
-public function store(Request $request)
+    public function create()
     {
- $request->validate(
+        return view('users.add_users');
+    }
+    public function store(Request $request)
+    {
+        $request->validate(
             [
                 'name' => 'required|unique:users,name',
                 'email' => 'required|unique:users,email',
                 'user_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'password' => 'required|string|min:3|max:8|confirmed',
 
-            ]);
+            ]
+        );
 
-            // dd($request->all());
+        // dd($request->all());
         $file_name = $this->saveImages($request->user_image, 'images/user/user_image');
 
         User::create([
@@ -46,7 +49,7 @@ public function store(Request $request)
         ]);
 
         return redirect()->route('users')->with('success', 'user added successfully!');
-    }  
+    }
     public function edit($id)
     {
         $user = User::find($id);
@@ -58,7 +61,7 @@ public function store(Request $request)
     }
 
 
- public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'name' => 'required|unique:users,name,' . $id,
@@ -92,6 +95,7 @@ public function store(Request $request)
     {
 
         $user = user::find($id);
+        File::delete(public_path('images/posts/image/' . $user->user_image));
 
         if (!$user) {
             return redirect()->route('users')->with('error', 'user Not Found!');
@@ -100,5 +104,4 @@ public function store(Request $request)
         $user->delete();
         return redirect()->route('users')->with('success', 'user deleted successfully!');
     }
-
 }

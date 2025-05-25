@@ -36,7 +36,7 @@
                         <li class="nav-item">
                             <a href="{{ route('admins') }}"
                                 class="nav-link {{ request()->routeIs('admins') ? 'active' : '' }}">
-                                <i class="far fa-user nav-icon"></i>
+                                <i class="fas fa-user"></i>
                                 <p>Admins</p>
                             </a>
 
@@ -47,7 +47,7 @@
                         <li class="nav-item">
                             <a href="{{ route('categories') }}"
                                 class="nav-link {{ request()->routeIs('categories') ? 'active' : '' }}">
-                                <i class="far fa-user nav-icon"></i>
+                                <i class="fas fa-th-large"></i>
                                 <p>Categories</p>
                             </a>
                         </li>
@@ -57,7 +57,7 @@
                         <li class="nav-item">
                             <a href="{{ route('tags') }}"
                                 class="nav-link {{ request()->routeIs('tags') ? 'active' : '' }}">
-                                <i class="far fa-user nav-icon"></i>
+                                <i class="fas fa-tags"></i>
                                 <p>Tags</p>
                             </a>
                         </li>
@@ -67,12 +67,34 @@
                         <li class="nav-item">
                             <a href="{{ route('users') }}"
                                 class="nav-link {{ request()->routeIs('users') ? 'active' : '' }}">
-                                <i class="far fa-user nav-icon"></i>
+                                <i class="fas fa-user"></i>
                                 <p>Users</p>
                             </a>
                         </li>
 
                     </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('posts') }}"
+                                class="nav-link {{ request()->routeIs('posts') ? 'active' : '' }}">
+                                <i class="fas fa-newspaper"></i>
+                                <p>Posts</p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('about.edit', $about->id) }}"
+                                class="nav-link {{ request()->routeIs('about.edit') ? 'active' : '' }}">
+                                <i class="fas fa-info-circle"></i>
+                                <p>About</p>
+                            </a>
+                        </li>
+                    </ul>
+
                 </li>
             </ul>
         </nav>
