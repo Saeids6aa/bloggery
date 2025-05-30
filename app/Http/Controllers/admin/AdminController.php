@@ -20,6 +20,8 @@ class AdminController extends Controller
         //     'admins' => $admins
         // ]);
     }
+
+
     public function create()
     {
         return view('admins.add_admin');
@@ -87,14 +89,10 @@ class AdminController extends Controller
 
     public function delete($id)
     {
-
-        $admin = Admin::find($id);
-
-        if (!$admin) {
-            return redirect()->route('admins')->with('error', 'Admin Not Found!');
+        if ($id == auth('admin')->id()) {
+            return redirect()->route('admins')->with('error', 'You Con"t Delete Your Current Account!');
         }
-
-        $admin->delete();
+        Admin::findOrFail($id)->delete();
         return redirect()->route('admins')->with('success', 'Admin deleted successfully!');
     }
 }
