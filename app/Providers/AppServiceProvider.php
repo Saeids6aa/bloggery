@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\About;
+use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,5 +22,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         view()->share('about', About::orderBy('id', 'desc')->first());
+        view()->share('setting', Setting::orderBy('id', 'desc')->first());
     }
 }

@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
 
 class PostController extends Controller
 {
-
     use UploadImageTrait;
 
     public function index()
