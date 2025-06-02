@@ -25,7 +25,7 @@ class AboutController extends Controller
         $about = About::where('id', $id)->first();
 
         $request->validate([
-            'descrption' => 'required|min:3|max:255',
+            'descrption' => 'required|min:3|max:1080',
             'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 

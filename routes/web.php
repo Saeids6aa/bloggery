@@ -4,12 +4,14 @@ use App\Http\Controllers\admin\AboutController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\auth\LoginController;
 use App\Http\Controllers\admin\CategoriesController;
+use App\Http\Controllers\admin\ContactController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\tagsController;
 use App\Http\Controllers\admin\usersControlleroller;
 use App\Http\Controllers\front\HomeController;
+use App\Http\Controllers\front\UserAuthentication;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -106,7 +108,18 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('edit/{id}', [SettingController::class, 'edit'])->name('setting.edit');
             Route::put('update/{id}', [SettingController::class, 'update'])->name('setting.update');
         });
+
+        Route::group([
+            'prefix' => 'contacts',
+            'middleware' => ['checkRoles:super_admin,admin']
+        ], function () {
+            Route::get('/', [ContactController::class, 'getContactData'])->name('contacts');
+            Route::delete('delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
+
+        });
     });
+
+
     Route::post('admin/login', [LoginController::class, 'store'])->name('admin.login.store');
     Route::post('admin/logout', [LoginController::class, 'logout'])->name('admin.logout');
 });
@@ -121,4 +134,18 @@ Route::group(['prefix' => 'home'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('app');
     Route::get('/show_post/{id}', [HomeController::class, 'show_post'])->name('post_details');
     Route::get('/show_all_posts', [HomeController::class, 'all_posts'])->name('all_posts');
+    Route::post('user/logout', [UserAuthentication::class, 'logout'])->name('user.logout');
+    Route::get('/about_us', [HomeController::class, 'about_us'])->name('about_us');
+    Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
+    Route::post('/send_contact', [HomeController::class, 'send_contact'])->name('send_contact');
+    Route::get('/recent_posts', [HomeController::class, 'recent_posts'])->name('recent_posts');
+    Route::get('/categories_posts/{id}', [HomeController::class, 'categories_posts'])->name('categories_posts');
+    Route::get('/tags_posts/{id}', [HomeController::class, 'tags_posts'])->name('tags_posts');
+
+
 });
+
+Route::get('/register', [UserAuthentication::class, 'user_register'])->name('register');
+Route::post('/store_user', [UserAuthentication::class, 'store_user'])->name('store_user');
+Route::get('/user_login', [UserAuthentication::class, 'show_login_page'])->name('show_login');
+Route::post('/user/login', [UserAuthentication::class, 'user_login'])->name('user_login.login.store');

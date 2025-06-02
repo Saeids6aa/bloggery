@@ -32,43 +32,43 @@
                                 <label for="email">Post Title</label>
                                 <input type="text" name="title" class="form-control" id="title"
                                     placeholder="Enter admin title">
-                            </div>
 
-                            <div class="form-group">
-                                <label for="email">Post descrption</label>
-                                <textarea name="description" id="" class="form-control" cols="30" rows="10"></textarea>
-                            </div>
-                            <label for="Category">Post Category</label>
-                            <select name="category_id" id="category_id" class="form-control select2">
-                                <option disabled selected>Choose Category</option>
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
 
-                            <div class="form-group">
-                                <label for="tags">Post Tags</label>
-                                <select id="tags" name="tags[]" class="form-control select2" multiple="multiple"
-                                    data-placeholder="Choose Tags">
-                                    @foreach ($tags as $tag)
-                                        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                <div class="form-group">
+                                    <label for="email">Post descrption</label>
+                                    <textarea name="description" id="" class="form-control" cols="30" rows="10"></textarea>
+                                </div>
+                                <label for="Category">Post Category</label>
+                                <select name="category_id" id="category_id" class="form-control select2">
+                                    <option disabled selected>Choose Category</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                 </select>
 
-                            </div>
+                                <div class="form-group">
+                                    <label for="tags">Post Tags</label>
+                                    <select id="tags" name="tags[]" class="form-control select2" multiple="multiple"
+                                        data-placeholder="Choose Tags">
+                                        @foreach ($tags as $tag)
+                                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                            <div class="form-group">
-                                <label for="avatar">Upload Image</label>
-                                <div class="custom-file">
-                                    <input type="file" class="custom-file-input" id="file-image" name="image">
-                                    <label class="custom-file-label" for="image">Choose file</label>
                                 </div>
-                            </div>
-                            <div id="thumb-output"></div>
 
-                            <div class="text-end mt-4">
-                                <button type="submit" class="btn btn-primary">Save</button>
-                            </div>
+                                <div class="form-group">
+                                    <label for="avatar">Upload Image</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="file-image" name="image">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                    </div>
+                                </div>
+                                <div id="thumb-output"></div>
+
+                                <div class="text-end mt-4">
+                                    <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
 
                         </form>
                     </div>

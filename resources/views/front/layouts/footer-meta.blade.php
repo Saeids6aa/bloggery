@@ -19,4 +19,28 @@
             }
         }
     </script>
+
     
+    <script src="{{ asset('back_end/toastr.min.js') }}"></script>
+
+    <script>
+        toastr.options.positionClass = 'toast-bottom-right';
+
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
+
+        @if (session('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
+
+        @if ($errors->any())
+            let errorList = `<ul>`;
+            @foreach ($errors->all() as $error)
+                errorList += `<li>{{ $error }}</li>`;
+            @endforeach
+            errorList += `</ul>`;
+
+            toastr.error(errorList, 'Validation Error');
+        @endif
+    </script>

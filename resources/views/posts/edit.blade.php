@@ -34,6 +34,7 @@
                                 <input type="text" name="title" class="form-control" id="title"
                                     value="{{ $post->title }}">
                             </div>
+                               
 
                             <div class="form-group">
                                 <label for="email">Post descrption</label>

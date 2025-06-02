@@ -3,6 +3,7 @@
 
 <head>
 @include('front.layouts.header-meta')
+@yield('style')
 </head>
 
 <body>

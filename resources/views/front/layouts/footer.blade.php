@@ -1,21 +1,39 @@
    <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="social-icons">
-                        <li><a href="#">Facebook</a></li>
-                        <li><a href="#">Twitter</a></li>
-                        <li><a href="#">Behance</a></li>
-                        <li><a href="#">Linkedin</a></li>
-                        <li><a href="#">Dribbble</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <div class="copyright-text">
-                        <p>Copyright 2020 Stand Blog Co.
+       <div class="row">
+           <div class="col-lg-12">
+               <ul class="social-icons">
+                   @if (!empty($setting->url_facebook))
+                       <li>
+                           <a href="{{ $setting->url_facebook }}">
+                               Facebook
+                           </a>
+                       </li>
+                   @endif
 
-                            | Design: <a rel="nofollow" href="https://templatemo.com" target="_parent">TemplateMo</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+                   @if (!empty($setting->url_twitter))
+                       <li>
+                           <a href="{{ $setting->url_twitter }}">
+                               Twitter
+                           </a>
+                       </li>
+                   @endif
+
+                   @if (!empty($setting->url_whatsapp))
+                       <li>
+                           <a href="{{ $setting->url_whatsapp }}">
+                               WhatsApp
+                           </a>
+                       </li>
+                   @endif
+               </ul>
+           </div>
+           <div class="col-lg-12">
+               <div class="copyright-text" style="color: white">
+                   <strong>Copyright
+                       &copy;{{ date('Y') }} .
+                       <a>Bloger_System</a>.</strong> All rights reserved.
+                   <div class="float-right d-none d-sm-inline-block">
+                   </div>
+               </div>
+           </div>
+       </div>

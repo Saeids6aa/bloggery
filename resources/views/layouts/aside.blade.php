@@ -85,6 +85,13 @@
                                     <p>Setting</p>
                                 </a>
                             </li>
+                             <li class="nav-item">
+                                <a href="{{ route('contacts') }}"
+                                   class="nav-link {{ request()->routeIs('contacts') ? 'active' : '' }}">
+<i class="fas fa-heart nav-icon"></i>
+                                    <p>Contacts</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 
@@ -118,6 +125,13 @@
                                    class="nav-link {{ request()->routeIs('posts') ? 'active' : '' }}">
                                     <i class="fas fa-newspaper nav-icon"></i>
                                     <p>Posts</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('contacts') }}"
+                                   class="nav-link {{ request()->routeIs('contacts') ? 'active' : '' }}">
+                                    <i class="fas fa-message nav-icon"></i>
+                                    <p>Contacts</p>
                                 </a>
                             </li>
                         </ul>

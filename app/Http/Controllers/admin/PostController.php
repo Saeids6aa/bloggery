@@ -8,6 +8,7 @@ use App\Models\Post;
 use App\Models\tags;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 
@@ -34,9 +35,9 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:posts,title,except,id',
-            'description' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:1080',
             'category_id' => 'required|integer|exists:categories,id',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,PNG,jpg,gif|max:10240',
             'tags'        => 'required|array',
             'tags.*'      => 'integer|exists:tags,id',
         ]);
@@ -54,6 +55,7 @@ class PostController extends Controller
             return redirect()->route('posts')->with('error', 'Somthing Went Wrong !');
         }
         $post->tags()->sync($request->tags);
+        Cache::forget('recent_posts');
 
         return redirect()->route('posts')->with('success', 'Posts added successfully!');
     }
@@ -73,9 +75,9 @@ class PostController extends Controller
 
         $request->validate([
             'title'       => "required|unique:posts,title," . $id,
-            'description' => 'required|min:3|max:255',
+            'description' => 'required|min:3|max:1080',
             'category_id' => 'required|integer|exists:categories,id',
-            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'tags'        => 'required|array',
             'tags.*'      => 'integer|exists:tags,id',
         ]);
@@ -93,6 +95,7 @@ class PostController extends Controller
         ]);
 
         $post->tags()->sync($request->tags);
+        Cache::forget('recent_posts');
 
         return redirect()->route('posts')
             ->with('success', 'Post updated successfully.');
@@ -105,6 +108,8 @@ class PostController extends Controller
         $post->tags()->detach();
 
         $post->delete();
+        Cache::forget('recent_posts');
+
         return redirect()->route('posts')->with('success', 'Posts deleted successfully!');
     }
 

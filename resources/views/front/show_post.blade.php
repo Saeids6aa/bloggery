@@ -30,15 +30,15 @@
                                     </div>
                                     <div class="down-content">
                                         <span>{{ $post->category->name }}</span>
-                                        <a href="post-details.html">
-                                            <h4>{{ $post->titlr }}</h4>
+                                        <a>
+                                            <h4>{{ $post->title }}</h4>
                                         </a>
                                         <ul class="post-info">
                                             <li><a href="#">{{ $post->admin->admin_name }}</a></li>
                                             <li><a href="#">{{ $post->created_at->format('F d, Y') }}</a></li>
                                             <li><a href="#">10 Comments</a></li>
                                         </ul>
-                                        <p>{{ $post->description }}.
+                                        <p>{{ $post->description }}</p>
                                         </p>
                                         <div class="post-options">
                                             <div class="row">
@@ -107,25 +107,26 @@
                                                 <div class="row">
                                                     <div class="col-md-6 col-sm-12">
                                                         <fieldset>
-                                                            <input name="name" type="text" id="name"
-                                                                placeholder="Your name" required="">
+                                                            <input type="name" name="name" class="form-control"
+                                                                placeholder="Your Name">
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-6 col-sm-12">
                                                         <fieldset>
                                                             <input name="email" type="text" id="email"
-                                                                placeholder="Your email" required="">
+                                                                placeholder="Your email" required=""
+                                                                class="form-control">
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12">
                                                         <fieldset>
                                                             <input name="subject" type="text" id="subject"
-                                                                placeholder="Subject">
+                                                                placeholder="Subject" class="form-control">
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <fieldset>
-                                                            <textarea name="message" rows="6" id="message" placeholder="Type your comment" required=""></textarea>
+                                                            <textarea name="message" rows="6" id="message" placeholder="Type your comment" ></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-lg-12">
