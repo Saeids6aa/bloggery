@@ -27,10 +27,21 @@ class Post extends Model
         return $this->belongsToMany(
             tags::class,
             'post_tags',
-            'post_id', 
-            'tag_id', 
-            'id',  
-            'id' 
+            'post_id',
+            'tag_id',
+            'id',
+            'id'
         );
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function user()
+{
+ return $this->belongsTo(User::class);
+}
+
 }

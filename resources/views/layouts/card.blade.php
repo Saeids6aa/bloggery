@@ -49,13 +49,13 @@
     <div class="col-lg-3 col-6">
         <div class="small-box bg-danger">
             <div class="inner">
-                <h3>65</h3>
-                <p>Unique Visitors</p>
+                <h3>{{App\Models\Post::count()}}</h3>
+                <p>Posts</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">
+            <a href="{{route('posts')}}" class="small-box-footer">
                 More info <i class="fas fa-arrow-circle-right"></i>
             </a>
         </div>
@@ -66,7 +66,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Latest Records</h3>
+                <h3 class="card-title">Latest Messages</h3>
             </div>
 
             <div class="card-body table-responsive p-0">
@@ -90,10 +90,46 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-right p-2">
-                    {{ $contacts->links('pagination::bootstrap-4') }}
+                
+            </div>
+
+        </div>
+
+
+
+        <div class="row pt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Latest Comments</h3>
+                    </div>
+
+                    <div class="card-body table-responsive p-0">
+                        <table class="table table-striped table-hover text-center mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>id</th>
+                                    <th>User Name</th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($comments as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->user->name }} </td>
+                                        <td><a href="{{ route('posts.comment', $item->post->id) }}#comment"
+                                                title="View The Comment ">{{ Str::limit($item->comment, 50) }}</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+
                 </div>
+
+
             </div>
         </div>
-    </div>
-</div>

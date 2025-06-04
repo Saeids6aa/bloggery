@@ -22,6 +22,12 @@ class usersControlleroller extends Controller
         // ]);
 
     }
+
+// public function profile($id)
+// {
+//     $admin = User::find($id); 
+//     return view('users.profile', compact('users'));
+// }
     public function create()
     {
         return view('users.add_users');

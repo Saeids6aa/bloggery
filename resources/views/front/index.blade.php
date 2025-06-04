@@ -1,3 +1,4 @@
+
 @extends('front.layouts.app')
 
 @section('content')
@@ -24,6 +25,9 @@
                         <div class="owl-stage"
                             style="transform: translate3d(-2834px, 0px, 0px); transition: all; width: 5669px;">
                             @foreach ($posts->take(6) as $post)
+                                @php
+                                    $post_comment_count = $post->comments->count();
+                                @endphp
                                 <div class="owl-item ">
                                     <div class="item "
                                         style="width: 520px; height: 450px; overflow: hidden; padding:0 13px 0 13px;">
@@ -46,7 +50,7 @@
                                                         </a>
                                                     </li>
                                                     <li>
-                                                        <a href="#">{{ $post->comments_count ?? 0 }} Comments</a>
+                                                        <a href="{{route('post_details',$post->id)}}#comments">{{  $post_comment_count }} Comments</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -70,6 +74,10 @@
                                 <div class="row">
 
                                     @foreach ($posts->take(3) as $post)
+                                        @php
+                                            $post_comment_count = $post->comments->count() ?? 0;
+
+                                        @endphp
                                         <div class="col-lg-12">
                                             <div class="blog-post">
                                                 <div class="blog-thumb">
@@ -85,7 +93,7 @@
                                                     <ul class="post-info">
                                                         <li><a href="#">{{ $post->admin_name }}</a></li>
                                                         <li><a href="#">{{ $post->Date }}</a></li>
-                                                        <li><a href="#">{{ $post->comments_count ?? 0 }} Comments</a>
+                                                        <li><a href="#">{{ $post_comment_count }} Comments</a>
                                                         </li>
                                                     </ul>
                                                     <p>{{ Str::limit($post->description, 100) }}</p>

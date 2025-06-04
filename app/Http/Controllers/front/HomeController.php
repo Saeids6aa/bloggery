@@ -103,12 +103,14 @@ class HomeController extends Controller
         $categories = $data['categories'];
         $tags = $data['tags'];
 
+        $post = Post::findOrFail($id);
 
-        $post = Post::find($id);
+        $comments = $post->comments()->with('user')->latest()->paginate(5);
         return view('front.show_post')->with([
             'post' => $post,
             'categories' => $categories,
-            'tags' => $tags
+            'tags' => $tags,
+            'comments' => $comments
         ]);
     }
 

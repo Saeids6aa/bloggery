@@ -1,4 +1,23 @@
 @extends('front.layouts.app')
+@section('style')
+    <style>
+        .page-item.active .page-link {
+            background-color: #fb9857;
+            border-color: #fb9857;
+        }
+
+        .page-link {
+            color: #fb9857;
+        }
+
+        .page-link:hover {
+            color: #fb9857;
+        }
+        
+    </style>
+
+@endsection
+
 
 @section('content')
     <div class="heading-page header-text">
@@ -15,7 +34,6 @@
             </div>
         </section>
     </div>
-
 
     <section class="blog-posts grid-system">
         <div class="container">
@@ -57,45 +75,37 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-12" id="comments">
                                 <div class="sidebar-item comments">
                                     <div class="sidebar-heading">
-                                        <h2>4 comments</h2>
+                                        <h2>{{ $post->comments->count() }} Comments</h2>
                                     </div>
                                     <div class="content">
                                         <ul>
-                                            <li>
-                                                <div class="author-thumb">
-                                                    <img src="{{ asset('front_end/assets/images/comment-author-01.jpg') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="right-content">
-                                                    <h4>Charles Kate<span>May 16, 2020</span></h4>
-                                                    <p>Fusce ornare mollis eros. Duis et diam vitae justo fringilla
-                                                        condimentum eu quis leo. Vestibulum id turpis porttitor sapien
-                                                        facilisis scelerisque. Curabitur a nisl eu lacus convallis eleifend
-                                                        posuere id tellus.</p>
-                                                </div>
-                                            </li>
+                                            @foreach ($comments as $item)
+                                                <li>
+                                                    <div class="author-thumb">
+                                                        <img src="{{ asset('/images/user/user_image/' . $item->user->user_image) }}"
+                                                            alt="" style="border-radius: 10px">
+                                                    </div>
+                                                    <div class="right-content">
+                                                        <h4>{{ $item->user->name }}<span>{{ $item->created_at->format('F d, Y') }}</span>
+                                                        </h4>
+                                                        <p class="pt-1">{{ $item->comment }}</p>
+                                                    </div>
+                                                </li>
+                                            @endforeach
 
-                                            <li>
-                                                <div class="author-thumb">
-                                                    <img src="{{ asset('front_end/assets/images/comment-author-03.jpg') }}"
-                                                        alt="">
-                                                </div>
-                                                <div class="right-content">
-                                                    <h4>Belisimo Mama<span>May 16, 2020</span></h4>
-                                                    <p>Nullam nec pharetra nibh. Cras tortor nulla, faucibus id tincidunt
-                                                        in, ultrices eget ligula. Sed vitae suscipit ligula. Vestibulum id
-                                                        turpis volutpat, lobortis turpis ac, molestie nibh.</p>
-                                                </div>
-                                            </li>
 
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
+                                <div class="d-flex justify-content-center mt-4" style="color: red">
+                                    {{ $comments->links('pagination::bootstrap-4') }}
+                                </div>
                             </div>
+
                             @if (auth()->check())
                                 <div class="col-lg-12">
                                     <div class="sidebar-item submit-comment">
@@ -103,51 +113,36 @@
                                             <h2>Your comment</h2>
                                         </div>
                                         <div class="content">
-                                            <form id="comment" action="#" method="post">
+                                            <form id="comment" action="{{ route('add_comment') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="post_id" value="{{ $post->id }}">
                                                 <div class="row">
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <fieldset>
-                                                            <input type="name" name="name" class="form-control"
-                                                                placeholder="Your Name">
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-6 col-sm-12">
-                                                        <fieldset>
-                                                            <input name="email" type="text" id="email"
-                                                                placeholder="Your email" required=""
-                                                                class="form-control">
-                                                        </fieldset>
-                                                    </div>
-                                                    <div class="col-md-12 col-sm-12">
-                                                        <fieldset>
-                                                            <input name="subject" type="text" id="subject"
-                                                                placeholder="Subject" class="form-control">
-                                                        </fieldset>
-                                                    </div>
                                                     <div class="col-lg-12">
                                                         <fieldset>
-                                                            <textarea name="message" rows="6" id="message" placeholder="Type your comment" ></textarea>
+                                                            <textarea name="comment" rows="6" id="comment" placeholder="Type your comment"></textarea>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <fieldset>
                                                             <button type="submit" id="form-submit"
-                                                                class="main-button">Submit</button>
+                                                                class="main-button">Comment</button>
                                                         </fieldset>
                                                     </div>
+
                                                 </div>
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>
                             @else
-                                <div class="col-12 text-center mt-4">
-                                    <div class="alert alert-warning d-inline-block" role="alert"
-                                        style="font-weight: 500;">
-                                        Please <a href="" class="alert-link">log in</a> to comment.
+                                <div class="col-lg-8 justify-content-center pt-4 logj">
+                                    <div class="main-button">
+                                        <a href="{{ route('show_login') }}"> Please login to comment.</a>
                                     </div>
                                 </div>
                             @endif
+
 
                         </div>
                     </div>

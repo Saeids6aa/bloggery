@@ -24,7 +24,7 @@
     <script src="{{ asset('back_end/toastr.min.js') }}"></script>
 
     <script>
-        toastr.options.positionClass = 'toast-bottom-right';
+        toastr.options.positionClass = 'toast-bottom-left';
 
         @if (session('success'))
             toastr.success("{{ session('success') }}");

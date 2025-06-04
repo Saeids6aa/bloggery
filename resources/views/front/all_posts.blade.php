@@ -29,6 +29,9 @@
                         <div class="row">
 
                             @foreach ($posts as $post)
+                               @php
+                                    $post_comment_count = $post->comments->count();
+                                @endphp
                                 <div class="col-lg-6 d-flex align-items-stretch">
                                     <div class="blog-post w-100 d-flex flex-column"
                                         style="#eee;padding: 15px;background: #fff;">
@@ -47,7 +50,7 @@
                                             <ul class="post-info">
                                                 <li><a href="#">{{ $post->admin->admin_name }}</a></li>
                                                 <li><a href="#">{{ $post->created_at->format('F d, Y') }}</a></li>
-                                                <li><a href="#">12 Comments</a></li>
+                                                <li><a href="{{route('post_details',$post->id)}}#comments">{{$post_comment_count}} Comment</a></li>
                                             </ul>
 
                                             <p>{{ Str::limit($post->description, 50) }}</p>

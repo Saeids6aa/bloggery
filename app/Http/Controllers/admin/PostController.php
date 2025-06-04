@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\tags;
 use App\Traits\UploadImageTrait;
@@ -121,5 +122,21 @@ class PostController extends Controller
         $tags = tags::select('id', 'name')->get();
 
         return view('posts.show', compact('post', 'categories', 'tags'));
+    }
+
+
+    public function show_post_comment($id)
+    {
+        $post = Post::with(['user', 'comments'])->find($id);
+
+        return view('posts.show_post_comments', compact('post'));
+    }
+
+    public function delete_comment($id)
+    {
+        $comment = Comment::where('id', $id)->first();
+        $comment->delete();
+
+        return redirect()->back()->with('success', 'Comment deleted successfully!');
     }
 }

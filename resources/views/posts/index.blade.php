@@ -31,7 +31,7 @@
                         </thead>
                         <tbody>
                             @foreach ($posts as $post)
-                                <tr style="text-align: center">
+                                <tr style="text-align: center ">
                                     <td>{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td><img src="{{ asset('images/posts/image/' . $post->image) }}" width="50px"
@@ -44,7 +44,7 @@
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this Post?')"
                                                 style="border: none; background: none; padding: 0; margin-right: 10px;">
                                                 <i class="fa fa-trash" style="color: red;"></i>
                                             </button>
@@ -54,6 +54,11 @@
                                         <a href="{{ route('posts.show', $post->id) }}"
                                             title="View">
                                             <i class="fas fa-eye"></i>
+                                        </a>
+
+                                         <a href="{{ route('posts.comment', $post->id) }}"
+                                            title="View Comment">
+                                            <i class="fas fa-list p-2"></i>
                                         </a>
 
                                     </td>

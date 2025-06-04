@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\tagsController;
 use App\Http\Controllers\admin\usersControlleroller;
+use App\Http\Controllers\front\CommentController;
 use App\Http\Controllers\front\HomeController;
 use App\Http\Controllers\front\UserAuthentication;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,15 @@ Route::middleware('auth:admin')->group(function () {
     Route::group(['prefix' => 'dashboard'], function () {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+
+        Route::group([
+            'prefix' => 'profile',
+        ], function () {
+            Route::get('profile/{id}', [AdminController::class, 'profile'])->name('profile');
+            Route::get('edit_profile/{id}', [AdminController::class, 'edit_profile'])->name('profile.edit');
+
+            Route::put('profile/update/{id}', [AdminController::class, 'profile_updete'])->name('profile.update');
+        });
         Route::group([
             'prefix' => 'admins',
             'middleware' => ['checkRoles:super_admin']
@@ -43,6 +53,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('admin/edit/{id}', [AdminController::class, 'edit'])->name('admin.edit');
             Route::put('admin/update/{id}', [AdminController::class, 'update'])->name('admin.update');
             Route::delete('admin/delete/{id}', [AdminController::class, 'delete'])->name('admin.delete');
+            Route::get('admin/show/{id}', [AdminController::class, 'show'])->name('show');
         });
 
         Route::group([
@@ -91,8 +102,14 @@ Route::middleware('auth:admin')->group(function () {
             Route::put('update/{id}', [PostController::class, 'update'])->name('posts.update');
             Route::delete('delete/{id}', [PostController::class, 'delete'])->name('posts.delete');
             Route::get('show/{id}', [PostController::class, 'show'])->name('posts.show');
+            Route::get('show_post_comment/{id}', [PostController::class, 'show_post_comment'])->name('posts.comment');
+            Route::delete('delete_comment/{id}', [PostController::class, 'delete_comment'])->name('posts.delete_comment');
+
         });
 
+      
+      
+      
         Route::group([
             'prefix' => 'about',
             'middleware' => ['checkRoles:super_admin']
@@ -115,7 +132,6 @@ Route::middleware('auth:admin')->group(function () {
         ], function () {
             Route::get('/', [ContactController::class, 'getContactData'])->name('contacts');
             Route::delete('delete/{id}', [ContactController::class, 'delete'])->name('contact.delete');
-
         });
     });
 
@@ -141,7 +157,9 @@ Route::group(['prefix' => 'home'], function () {
     Route::get('/recent_posts', [HomeController::class, 'recent_posts'])->name('recent_posts');
     Route::get('/categories_posts/{id}', [HomeController::class, 'categories_posts'])->name('categories_posts');
     Route::get('/tags_posts/{id}', [HomeController::class, 'tags_posts'])->name('tags_posts');
-
+    Route::get('show_profile/{id}' , [UserAuthentication::class , 'User_profile'])->name('User_profile');
+    Route::put('update_profile/{id}' , [UserAuthentication::class , 'update_profile'])->name('update_profile');
+    Route::post('/user_comment', [CommentController::class, 'add_comment'])->name('add_comment');
 
 });
 

@@ -38,7 +38,7 @@
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this Category?')"
                                                 style="border: none; background: none; padding: 0; margin-right: 10px;">
                                                 <i class="fa fa-trash" style="color: red;"></i>
                                             </button>

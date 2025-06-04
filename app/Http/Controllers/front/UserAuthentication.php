@@ -7,7 +7,9 @@ use App\Models\User;
 use App\Traits\UploadImageTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 
 class UserAuthentication extends Controller
 {
@@ -71,7 +73,7 @@ class UserAuthentication extends Controller
             $this->credentials($request)
         )) {
 
-        return redirect()->route('show_login')->with('error', 'Wrong Data!');
+            return redirect()->route('show_login')->with('error', 'Wrong Data!');
         }
         return redirect()->route('app');
     }
@@ -85,5 +87,46 @@ class UserAuthentication extends Controller
     protected function credentials(Request $request)
     {
         return $request->only($this->username(), 'password');
+    }
+
+
+    public function User_profile($id)
+    {
+
+        $id = auth('web')->id();
+        $user = User::find($id);
+        return view('front.profile', compact('user'));
+    }
+    public function update_profile(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        $request->validate([
+            'name' => 'required|unique:users,name,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
+            'user_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|string|min:3|max:8|confirmed',
+        ]);
+
+
+
+        $user = User::find($id);
+        if ($request->hasFile('user_image')) {
+            File::delete(public_path('images/user/user_image/' . $user->user_image));
+            $newFilename = $this->saveImages($request->file('user_image'), 'images/user/user_image');
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->user_image = $newFilename ?? $user->user_image;
+        }
+
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+
+        return redirect()->back()->with('success', 'Your profile  " ' . $user->name . ' "  updated successfully!');
     }
 }

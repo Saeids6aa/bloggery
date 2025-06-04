@@ -37,8 +37,8 @@
                                         <form action="{{ route('tags.delete', $tag->id) }}" method="POST"
                                             style="display: inline;">
                                             @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
+                                            @method('DELETE') 
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this Tag?')"
                                                 style="border: none; background: none; padding: 0; margin-right: 10px;">
                                                 <i class="fa fa-trash" style="color: red;"></i>
                                             </button>

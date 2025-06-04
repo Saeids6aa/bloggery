@@ -53,13 +53,17 @@
                                             style="display: inline;">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
+                                            <button type="submit" onclick="return confirm('Are you sure you want to delete this Admin?')"
                                                 style="border: none; background: none; padding: 0; margin-right: 10px;">
                                                 <i class="fa fa-trash" style="color: red;"></i>
                                             </button>
                                         </form>
-                                        <a href="{{route('admin.edit',$admin->id)}}" class="fa fa-edit" style="color: darkcyan;"></a>
-                                    </td>
+                                       
+                                        <a href="{{route('admin.edit',$admin->id)}}" class="fa fa-edit" style="color: darkcyan; "></a>
+
+                                        <a href="{{ route('show', $admin->id) }}" class="fa fa-user" style="color: darkcyan; "></a>
+                                  </td>
+                                    
                                 </tr>
                             @endforeach
                         </tbody>

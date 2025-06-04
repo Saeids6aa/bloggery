@@ -1,9 +1,9 @@
       <nav class="navbar navbar-expand-lg">
           <div class="container">
-              <a class="navbar-brand" href="{{route('app')}}">
+              <a class="navbar-brand" href="{{ route('app') }}">
                   <h2>
                       @if (!empty($setting->title))
-                              {{ $setting->title }}
+                          {{ $setting->title }}
                       @endif
                       <em>.</em>
                   </h2>
@@ -27,7 +27,7 @@
                       </li>
 
                       <li class="nav-item {{ request()->routeIs('contact') ? 'active' : '' }}">
-                          <a class="nav-link" href="{{route('contact')}}">Contact Us</a>
+                          <a class="nav-link" href="{{ route('contact') }}">Contact Us</a>
                       </li>
                       @if (auth('web')->check())
                           <ul class="navbar-nav">
@@ -36,12 +36,18 @@
                                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                       {{ auth('web')->user()->name }}
                                   </a>
+
                                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                      <a class="dropdown-item" href="{{ route('User_profile', auth('web')->id()) }}">
+                                          👤 Profile
+                                      </a>
+
                                       <a class="dropdown-item" href="{{ route('user.logout') }}"
                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                          Logout
+                                          🚪 Logout
                                       </a>
                                   </div>
+
                                   <form id="logout-form" action="{{ route('user.logout') }}" method="POST"
                                       style="display: none;">
                                       @csrf
