@@ -104,12 +104,9 @@ Route::middleware('auth:admin')->group(function () {
             Route::get('show/{id}', [PostController::class, 'show'])->name('posts.show');
             Route::get('show_post_comment/{id}', [PostController::class, 'show_post_comment'])->name('posts.comment');
             Route::delete('delete_comment/{id}', [PostController::class, 'delete_comment'])->name('posts.delete_comment');
-
         });
 
-      
-      
-      
+
         Route::group([
             'prefix' => 'about',
             'middleware' => ['checkRoles:super_admin']
@@ -150,17 +147,16 @@ Route::group(['prefix' => 'home'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('app');
     Route::get('/show_post/{id}', [HomeController::class, 'show_post'])->name('post_details');
     Route::get('/show_all_posts', [HomeController::class, 'all_posts'])->name('all_posts');
-    Route::post('user/logout', [UserAuthentication::class, 'logout'])->name('user.logout');
     Route::get('/about_us', [HomeController::class, 'about_us'])->name('about_us');
     Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
     Route::post('/send_contact', [HomeController::class, 'send_contact'])->name('send_contact');
     Route::get('/recent_posts', [HomeController::class, 'recent_posts'])->name('recent_posts');
     Route::get('/categories_posts/{id}', [HomeController::class, 'categories_posts'])->name('categories_posts');
     Route::get('/tags_posts/{id}', [HomeController::class, 'tags_posts'])->name('tags_posts');
-    Route::get('show_profile/{id}' , [UserAuthentication::class , 'User_profile'])->name('User_profile');
-    Route::put('update_profile/{id}' , [UserAuthentication::class , 'update_profile'])->name('update_profile');
+    Route::post('user/logout', [UserAuthentication::class, 'logout'])->name('user.logout');
+    Route::get('show_profile/{id}', [UserAuthentication::class, 'User_profile'])->name('User_profile');
+    Route::put('update_profile/{id}', [UserAuthentication::class, 'update_profile'])->name('update_profile');
     Route::post('/user_comment', [CommentController::class, 'add_comment'])->name('add_comment');
-
 });
 
 Route::get('/register', [UserAuthentication::class, 'user_register'])->name('register');
