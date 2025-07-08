@@ -11,8 +11,8 @@ class DashboardController extends Controller
 {
     function index()
     {
-        $comments = Comment::latest()->take(5)->get();
-        $contacts = contact::latest()->take(5)->get();
+        $comments = Comment::latest()->take(2)->get();
+        $contacts = contact::latest()->take(2)->get();
         return view('dashboard', compact('contacts', 'comments'));
     }
 }

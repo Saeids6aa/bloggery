@@ -25,3 +25,4 @@
   <link rel="stylesheet" href="{{asset('back_end/plugins/summernote/summernote-bs4.min.css')}}">
   <link rel="stylesheet" href="{{asset('back_end/dist/css/select2.min.css')}}"  />
   <link  rel="stylesheet" href="{{asset('back_end/toastr.min.css')}}"/>
+ 

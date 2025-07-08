@@ -39,7 +39,7 @@ class usersControlleroller extends Controller
                 'name' => 'required|unique:users,name',
                 'email' => 'required|unique:users,email',
                 'user_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-                'password' => 'required|string|min:3|max:8|confirmed',
+                'password' => 'required|string|min:3|max:12|confirmed',
 
             ]
         );
